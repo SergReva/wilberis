@@ -23,7 +23,12 @@ const closeModal = () => {
 };
 
 buttonCart.addEventListener('click', openModal);
-modalClose.addEventListener('click', closeModal);
+modalCart.addEventListener('click', (event) => {
+	let target = event.target;
+	if (target.classList.contains('overlay') || target.classList.contains('modal-close')) {
+		closeModal();
+	}
+});
 
 // scroll smooth
 
