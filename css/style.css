@@ -372,9 +372,9 @@ button {
 .modal {
     background-color: #e0e0ff;
     min-width: 600px;
-    max-height: 400px;
-    padding: 30px;
-    overflow: scroll;
+    max-height: 500px;
+    padding: 40px;
+    overflow: auto;
     position: relative;
 }
 

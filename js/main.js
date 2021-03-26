@@ -257,3 +257,52 @@ offers.forEach((item) => {
     };
   });
 });
+
+
+//server
+
+const modalForm = document.querySelector('.modal-form');
+const userName = document.querySelector('.user-name');
+const userTel = document.querySelector('.user-tel');
+
+const postData = dataUser => fetch('server.php', {
+  method: 'POST',
+  body: dataUser,
+});
+
+modalForm.addEventListener('submit', event => {
+  event.preventDefault();
+
+  if (userName.value === '' || userTel.value === '' || userName.value.length < 3) {
+    console.error('Имя или номер телефона не введены');
+  } else if (cart.cartGoods.length === 0) {
+    console.error('Корзина не может быть пустой');
+  } else {
+
+    const formData = new FormData(modalForm); //спец класс в JS
+
+    formData.append('cart', JSON.stringify(cart.cartGoods));
+    
+  
+    postData(formData)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        alert('Ваша заявка успешно отправлена, с вами свяжуться в ближайшее время');
+        console.log(response.status);       
+      })
+      .catch(err => {
+        alert('К сожалению произошла ошибка');
+        console.log(err);
+      })
+      .finally(() => {
+        closeModal();
+        modalForm.reset();
+        cart.cartGoods.length = 0;
+        cart.renderCart();
+      });
+  }
+
+  
+});
